@@ -7,3 +7,10 @@ $fa-font-path: '../webfonts';
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
 
 @import 'bootstrap/scss/bootstrap';
+
+
+body {
+    background-color: $bg-color;
+    color: $text-white;
+    font-family: $main-font;
+}

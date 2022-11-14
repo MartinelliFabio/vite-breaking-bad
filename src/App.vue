@@ -23,6 +23,9 @@ import CardComponent from './components/CardComponent.vue';
       ContainerCardComponent,
       SearchComponent,
       CardComponent
+    },
+    data() {
+      apiUrl: 'https://www.breakingbadapi.com/api/characters'
     }
   }
 </script>
