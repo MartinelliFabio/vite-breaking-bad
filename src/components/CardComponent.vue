@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-        <div v-if="loading">
+        <div v-if="loading" class="d-flex justify-content-center fw-bold display-4 mt-4">
             Sto caricando i dati
         </div>
-        <div class="row" v-if="!loading">
-            <div class="col-2 m-3" v-for="(item, index) in characters" :key="item.char_id">
+        <div class="row justify-content-center" v-if="!loading">
+            <div class="col-2 m-2 g-3" v-for="(item, index) in characters" :key="item.char_id">
                 <div class="character text-center">
                     <img :src="item.img" :alt="item.name">
                     <p class="fw-bold mt-3 text-white title">{{ item.name }}</p>

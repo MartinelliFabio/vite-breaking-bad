@@ -1,5 +1,8 @@
 <template>
     <section class="container card-container">
+        <div class="container d-flex justify-content-center mt-4 mb-2">
+            <div v-html="`Found ${characterList.length} characters`" class="found fw-bold"></div>
+        </div>
         <CardComponent :characters="characterList" :loading="loading" />
     </section>
 </template>
@@ -45,6 +48,13 @@ import CardComponent from './CardComponent.vue';
 
 .card-container {
     background-color: $bg-white;
-    padding: 20px;
+    padding: 20px 0;
+}
+
+.found {
+    background-color: $bg-barra;
+    color: $text-white;
+    width: 90%;
+    padding: 15px;
 }
 </style>
