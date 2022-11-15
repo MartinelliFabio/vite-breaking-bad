@@ -1,4 +1,5 @@
 <template>
+    <SearchComponent @filterchar="getCharacters" />
     <section class="container card-container">
         <div class="container d-flex justify-content-center mt-4 mb-2">
             <div v-html="`Found ${characterList.length} characters`" class="found fw-bold"></div>
@@ -10,29 +11,41 @@
 <script>
 import axios from 'axios';
 import CardComponent from './CardComponent.vue';
+import SearchComponent from './SearchComponent.vue';
+
 
     export default {
         name: 'ContainerCardComponent',
         components: {
-            CardComponent
+            CardComponent,
+            SearchComponent
         },
         data() {
             return {
                 apiUrl: 'https://www.breakingbadapi.com/api/characters',
                 characterList: [],
-                loading: false
+                loading: false,
             }
         },
         methods: {
-            getCharacters() {
+            getCharacters(category) {
+                let options = null
+                if (category) {
+                    options = {
+                        params: {
+                            category: category
+                        }
+                    } 
+                }
                 this.loading = true;
-                axios.get(this.apiUrl).then(
+                axios.get(this.apiUrl, options).then(
                     (res) => {
                         this.characterList = [...res.data];
                         console.log(this.characterList)
                         this.loading = false
                     }
                 ).catch((error) => {
+                    this.loading = false;
                     console.log(error);
                 })
             }
