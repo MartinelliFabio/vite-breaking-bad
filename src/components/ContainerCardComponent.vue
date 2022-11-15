@@ -1,9 +1,7 @@
 <template>
     <SearchComponent @filterchar="getCharacters" />
     <section class="container card-container">
-        <div class="container d-flex justify-content-center mt-4 mb-2">
-            <div v-html="`Found ${store.characterList.length} characters`" class="found fw-bold"></div>
-        </div>
+        <CounterComponent/>
         <CardComponent :characters="store.characterList" :loading="store.loading" />
     </section>
 </template>
@@ -12,6 +10,7 @@
 import axios from 'axios';
 import CardComponent from './CardComponent.vue';
 import SearchComponent from './SearchComponent.vue';
+import CounterComponent from './CounterCompontent.vue'
 import { store } from '../store';
 
 
@@ -19,7 +18,8 @@ import { store } from '../store';
         name: 'ContainerCardComponent',
         components: {
             CardComponent,
-            SearchComponent
+            SearchComponent,
+            CounterComponent
         },
         data() {
             return {
@@ -63,12 +63,5 @@ import { store } from '../store';
 .card-container {
     background-color: $bg-white;
     padding: 20px 0;
-}
-
-.found {
-    background-color: $bg-barra;
-    color: $text-white;
-    width: 90%;
-    padding: 15px;
 }
 </style>
