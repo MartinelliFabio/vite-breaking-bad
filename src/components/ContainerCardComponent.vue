@@ -2,9 +2,9 @@
     <SearchComponent @filterchar="getCharacters" />
     <section class="container card-container">
         <div class="container d-flex justify-content-center mt-4 mb-2">
-            <div v-html="`Found ${characterList.length} characters`" class="found fw-bold"></div>
+            <div v-html="`Found ${store.characterList.length} characters`" class="found fw-bold"></div>
         </div>
-        <CardComponent :characters="characterList" :loading="loading" />
+        <CardComponent :characters="store.characterList" :loading="store.loading" />
     </section>
 </template>
 
@@ -12,6 +12,7 @@
 import axios from 'axios';
 import CardComponent from './CardComponent.vue';
 import SearchComponent from './SearchComponent.vue';
+import { store } from '../store';
 
 
     export default {
@@ -22,14 +23,13 @@ import SearchComponent from './SearchComponent.vue';
         },
         data() {
             return {
-                apiUrl: 'https://www.breakingbadapi.com/api/characters',
-                characterList: [],
-                loading: false,
+                store,
+                endPoint: '/characters'
             }
         },
         methods: {
             getCharacters(category) {
-                let options = null
+                let options = null;
                 if (category) {
                     options = {
                         params: {
@@ -37,15 +37,16 @@ import SearchComponent from './SearchComponent.vue';
                         }
                     } 
                 }
-                this.loading = true;
-                axios.get(this.apiUrl, options).then(
+                store.loading = true;
+                const url = store.apiUrl + this.endPoint;
+                axios.get(url, options).then(
                     (res) => {
-                        this.characterList = [...res.data];
-                        console.log(this.characterList)
-                        this.loading = false
+                        store.characterList = [...res.data];
+                        console.log(store.characterList)
+                        store.loading = false
                     }
                 ).catch((error) => {
-                    this.loading = false;
+                    store.loading = false;
                     console.log(error);
                 })
             }
